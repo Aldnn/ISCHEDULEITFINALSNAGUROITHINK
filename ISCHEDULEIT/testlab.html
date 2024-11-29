@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Custom Multi-Select Dropdown</title>
+
+    <style>
+#select-Day {
+
+border: 1px solid #ccc;
+
+padding: 10px;
+
+width: 200px; /* Adjust width as needed */
+
+height: 50px; /* Adjust height as needed */
+
+overflow-y: auto;
+
+}
+
+
+#select-Day label {
+
+display: block;
+
+margin-bottom: 10px;
+
+}
+
+
+#select-Day input[type="checkbox"] {
+
+margin-right: 10px;
+
+}
+    
+
+    </style>
+
+</head>
+
+<body>
+
+
+  <div id="select-Day">
+
+    <label><input type="checkbox" name="day" value="Monday"> Mon</label>
+
+    <label><input type="checkbox" name="day" value="Tuesday"> Tues</label>
+
+    <label><input type="checkbox" name="day" value="Wednesday"> Wed</label>
+
+    <label><input type="checkbox" name="day" value="Thursday"> Thurs</label>
+
+    <label><input type="checkbox" name="day" value="Friday"> Fri</label>
+
+    <label><input type="checkbox" name="day" value="Saturday"> Sat</label>
+
+</div>
+
+
+    <script>
+
+        const dropdownSelect = document.getElementById('dropdown-select');
+
+        const dropdownOptions = document.getElementById('dropdown-options');
+
+
+        // Toggle dropdown visibility
+
+        dropdownSelect.addEventListener('click', () => {
+
+            dropdownOptions.style.display = dropdownOptions.style.display === 'block' ? 'none' : 'block';
+
+        });
+
+
+        // Update selected options
+
+        const checkboxes = dropdownOptions.querySelectorAll('input[type="checkbox"]');
+
+        checkboxes.forEach(checkbox => {
+
+            checkbox.addEventListener('change', () => {
+
+                const selectedOptions = Array.from(checkboxes)
+
+                    .filter(i => i.checked)
+
+                    .map(i => i.parentNode.textContent.trim());
+
+                dropdownSelect.querySelector('span').textContent = selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Select Day';
+
+            });
+
+        });
+
+
+        // Close dropdown when clicking outside
+
+        window.addEventListener('click', (event) => {
+
+            if (!dropdownSelect.contains(event.target)) {
+
+                dropdownOptions.style.display = 'none';
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
